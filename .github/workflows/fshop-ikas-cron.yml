@@ -1,0 +1,16 @@
+name: FShop Ikas cron
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+jobs:
+  ikas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ikas cron isteği
+        env:
+          CRON_TOKEN: ${{ secrets.FSHOP_CRON_TOKEN }}
+        run: >-
+          curl --fail-with-body --silent --show-error
+          --max-time 240
+          "https://ozdwear.com/api/cron.php?action=ikas&token=${CRON_TOKEN}"
