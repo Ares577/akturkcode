@@ -1,0 +1,16 @@
+name: FShop genel cron
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+jobs:
+  all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Genel cron isteği
+        env:
+          CRON_TOKEN: ${{ secrets.FSHOP_CRON_TOKEN }}
+        run: >-
+          curl --fail-with-body --silent --show-error
+          --max-time 240
+          "https://ozdwear.com/api/cron.php?action=all&token=${CRON_TOKEN}"
